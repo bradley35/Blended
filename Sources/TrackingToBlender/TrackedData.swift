@@ -8,28 +8,29 @@
 
 import Foundation
 import AVFoundation
-struct TrackingData: Codable{
-    var points:[TrackingPoint] = [TrackingPoint]()
+//Z-up, Y-forward for input
+public struct TrackingData: Codable{
+    public var points:[TrackingPoint] = [TrackingPoint]()
     
-    func saveToFile(url:URL) throws{
+    public func saveToFile(url:URL) throws{
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
         let data = try encoder.encode(self)
         try data.write(to: url)
     }
-    static func loadFromFile(url:URL) throws -> TrackingData{
+    public static func loadFromFile(url:URL) throws -> TrackingData{
         let decoder = JSONDecoder()
         return try decoder.decode(TrackingData.self, from: Data(contentsOf: url))
     }
     
 }
 
-struct TrackingPoint:Codable{
-    var timeStamp:CMTimeValue
-    var timeScale:CMTimeScale
+public struct TrackingPoint:Codable{
+    public var timeStamp:CMTimeValue
+    public var timeScale:CMTimeScale
     
-    var position:simd_float4x4
-    func encode(to encoder: Encoder) throws {
+    public var position:simd_float4x4
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: Keys.self)
         var positionContainer = container.nestedContainer(keyedBy: PositionKeys.self, forKey: .position)
         try positionContainer.encode(position.columns.0, forKey: .col0)
@@ -40,7 +41,7 @@ struct TrackingPoint:Codable{
         try container.encode(timeStamp, forKey: .timeStamp)
         try container.encode(timeScale, forKey: .timeScale)
     }
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         var container = try decoder.container(keyedBy: Keys.self)
         var positionContainer = try container.nestedContainer(keyedBy: PositionKeys.self, forKey: .position)
         let col0 = try positionContainer.decode(simd_float4.self, forKey: .col0)
@@ -64,7 +65,7 @@ struct TrackingPoint:Codable{
         case col2
         case col3
     }
-    init(timeStamp:CMTimeValue, timeScale:CMTimeScale, position:simd_float4x4){
+    public init(timeStamp:CMTimeValue, timeScale:CMTimeScale, position:simd_float4x4){
         self.timeStamp = timeStamp
         self.position = position
         self.timeScale = timeScale
