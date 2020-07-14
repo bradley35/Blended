@@ -7,15 +7,16 @@ public class TrackingToBlender{
     var tracking:TrackingData
     var frameByFrameTransforms = [simd_float4x4]()
     
-    let currentFileURL = URL(fileURLWithPath: "\(#file)", isDirectory: false).deletingLastPathComponent()
-    let templateURL:URL
+    //let currentFileURL = URL(fileURLWithPath: "\(#file)", isDirectory: false).deletingLastPathComponent()
+    //var templateURL:URL
     
     public init(frameRate:Int, jsonURL:URL) throws{
         self.frameRate = frameRate
         self.jsonURL = jsonURL
         self.tracking = try TrackingData.loadFromFile(url: jsonURL)
         
-        templateURL = currentFileURL.appendingPathComponent("template.py")
+        //templateURL = currentFileURL.appendingPathComponent("template.py")
+        
     }
     
     public func processFrames(){
@@ -53,7 +54,7 @@ public class TrackingToBlender{
             pythonString.append(contentsOf: "("+String(frame.columns.0[3])+","+String(frame.columns.1[3])+","+String(frame.columns.2[3])+","+String(frame.columns.3[3])+"))),")
         }
         pythonString.append("]")
-        let templateString = try! String(contentsOf: templateURL)
+        let templateString = PYTHON_TEMPLATE//try! String(contentsOf: templateURL)
 
         let outputPython = templateString.replacingOccurrences(of: "### Camera Data HERE ###", with: pythonString)
         return outputPython

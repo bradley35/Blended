@@ -1,3 +1,4 @@
+let PYTHON_TEMPLATE = """
 import bpy
 import bpy.types
 
@@ -11,3 +12,4 @@ for transform in transforms:
     cam.keyframe_insert(data_path="location", frame=frame)
     cam.keyframe_insert(data_path="rotation_euler", frame=frame)
     frame = frame+1
+"""
