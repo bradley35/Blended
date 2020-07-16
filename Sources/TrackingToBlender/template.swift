@@ -13,4 +13,5 @@ for transform in transforms:
     cam.keyframe_insert(data_path="location", frame=frame)
     cam.keyframe_insert(data_path="rotation_euler", frame=frame)
     frame = frame+1
+print("Successfully imported tracking data")
 """
