@@ -4,6 +4,7 @@ import bpy.types
 
 transforms = ### Camera Data HERE ### #Form of [[x,y,z,rx,ry,rz]]
 cam = bpy.data.objects["Camera"]
+bpy.data.cameras.values()[0].lens = 31
 
 bpy.context.scene.render.fps = 60
 frame = 0
