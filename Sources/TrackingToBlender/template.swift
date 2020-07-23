@@ -1,6 +1,7 @@
 let PYTHON_TEMPLATE = """
 import bpy
 import bpy.types
+from mathutils import Matrix
 
 transforms = ### Camera Data HERE ### #Form of [[x,y,z,rx,ry,rz]]
 cam = bpy.data.objects["Camera"]

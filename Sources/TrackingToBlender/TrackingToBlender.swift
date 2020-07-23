@@ -23,7 +23,7 @@ public class TrackingToBlender{
         var currentFrame = 0
         for point in tracking.points{
             let frame = Int(((Float(point.timeStamp)/Float(point.timeScale))/(1/Float(frameRate))).rounded(.toNearestOrAwayFromZero))
-            print(String(frame)+":"+String(currentFrame))
+            //print(String(frame)+":"+String(currentFrame))
             if(frame < currentFrame){
                 //print("Less")
                 continue
